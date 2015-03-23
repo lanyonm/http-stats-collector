@@ -4,6 +4,6 @@ go:
   - 1.4
 
 install:
-  - go get -a github.com/cactus/go-statsd-client/statsd
+  - go get github.com/cactus/go-statsd-client/statsd
 
 script: make test

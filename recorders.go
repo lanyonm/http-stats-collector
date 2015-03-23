@@ -16,17 +16,19 @@ type Recorder interface {
 }
 
 type StatsDRecorder struct {
-	Client *statsd.Client
+	Statter statsd.Statter
 }
 
 // Push stats to StatsD.
 // This assumes that the data being written is always timing data and we are
 // always collecting all the samples.
 func (statsd StatsDRecorder) pushStat(stat string, value int64) bool {
-	err := statsd.Client.Timing(stat, value, 1.0)
-	if err != nil {
-		log.Fatal("there was an error sending the statsd timing", err)
-		return false
+	if statsd.Statter != nil {
+		err := statsd.Statter.Timing(stat, value, 1.0)
+		if err != nil {
+			log.Fatal("there was an error sending the statsd timing", err)
+			return false
+		}
 	}
 	return true
 }

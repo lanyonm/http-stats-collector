@@ -11,7 +11,7 @@ build: *.go
 	go build -o $(BINARY) *.go
 
 test:
-	go test -v ./...
+	go test -v
 
 run: all
 	./$(BINARY)

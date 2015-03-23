@@ -22,8 +22,8 @@ func main() {
 	// Create recorders and pass those to handlers.
 	// Not sure if this is the best way to continue, but it's a point along
 	// the process.
-	var client *statsd.Client
-	client, err := statsd.New(*statsHostPort, *statsPrefix)
+	var client statsd.Statter
+	client, err := statsd.NewClient(*statsHostPort, *statsPrefix)
 	if err != nil {
 		log.Fatal(err)
 	}
