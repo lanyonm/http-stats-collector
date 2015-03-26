@@ -1,6 +1,7 @@
 # http-stats-collector [![Build Status](https://travis-ci.org/lanyonm/http-stats-collector.svg)](https://travis-ci.org/lanyonm/http-stats-collector)
-This program collects [Navigation Timing API](http://www.html5rocks.com/en/tutorials/webperformance/basics/) data and forwards it along to the specified recorders (like [StatsD](https://github.com/etsy/statsd/)).
+This program collects [Navigation Timing API](http://www.html5rocks.com/en/tutorials/webperformance/basics/) data and Javascript errors and forwards the information along to the specified recorders (like [StatsD](https://github.com/etsy/statsd/) or [Logstash](http://logstash.net/)).
 
+## Navigation Timing
 The JSON structure the `/nav-timing` endpoint expects is:
 
 ```javascript
@@ -45,6 +46,25 @@ Javascript that will send this information can be as simple as the following:
 ```
 
 The `page-uri` will be converted into the appropriate format for the recorder and the stat pushed to that recorder.
+
+## Javascript Errors
+The JSON structure the `/js-logging` endpoint expects is:
+
+```javascript
+{
+	"page-uri": "fizz/buzz",
+	"query-string": "param=value&other=not",
+	"js-error": {
+		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36",
+		"error-type": "ReferenceError",
+		"description": "func is not defined"
+	}
+}
+```
+
+Javascript that collects and sends this information can be as simple as the following:
+
+
 
 ## Building
 This will run tests as well.
