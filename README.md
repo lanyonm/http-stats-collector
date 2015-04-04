@@ -1,4 +1,4 @@
-# http-stats-collector [![Build Status](https://travis-ci.org/lanyonm/http-stats-collector.svg)](https://travis-ci.org/lanyonm/http-stats-collector)
+# http-stats-collector [![Build Status](https://travis-ci.org/lanyonm/http-stats-collector.svg)](https://travis-ci.org/lanyonm/http-stats-collector) [![Coverage Status](https://coveralls.io/repos/lanyonm/http-stats-collector/badge.svg)](https://coveralls.io/r/lanyonm/http-stats-collector)
 This program collects [Navigation Timing API](http://www.html5rocks.com/en/tutorials/webperformance/basics/) data and forwards it along to the specified recorders (like [StatsD](https://github.com/etsy/statsd/)).
 
 The JSON structure the `/nav-timing` endpoint expects is:
