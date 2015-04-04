@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"reflect"
@@ -86,13 +85,7 @@ func CSPReportHandler() http.HandlerFunc {
 			return
 		}
 
-		body, err := ioutil.ReadAll(req.Body)
-		if err != nil {
-			http.Error(w, "Error reading request body", http.StatusBadRequest)
-			return
-		}
-
-		if err = json.Unmarshal(body, &report); err != nil {
+		if err := json.NewDecoder(req.Body).Decode(&report); err != nil {
 			http.Error(w, "Error parsing JSON", http.StatusBadRequest)
 			return
 		}
