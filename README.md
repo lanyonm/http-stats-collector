@@ -75,10 +75,14 @@ This will run tests as well.
 
 	make run
 
-If you want to test the running system, you'll need to send it some stats:
+If you want to test the running system, you'll need to send it some stats. Send it this for Navigation Timing:
 
 ```bash
 curl -d '{"page-uri": "/foo/bar", "nav-timing":{"dns":1,"connect":2,"ttfb":3,"basePage":4,"frontEnd":5}}' -H "X-Real-Ip: 192.168.0.1" http://localhost:8080/nav-timing
+```
+And this for JS Error reporting:
+```bash
+curl -d '{"page-uri": "/foo/bar", "query-string": "?param=true", "js-error":{"user-agent": "Mozilla/5.0", "error-type": "ReferenceError", "description": "func is not defined"}}' -H "X-Real-Ip: 192.168.0.1" http://localhost:8080/js-error
 ```
 
 ## Test Coverage
