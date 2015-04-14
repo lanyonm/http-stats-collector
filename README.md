@@ -55,7 +55,6 @@ The JSON structure the `/js-logging` endpoint expects is:
 	"page-uri": "fizz/buzz",
 	"query-string": "param=value&other=not",
 	"js-error": {
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36",
 		"error-type": "ReferenceError",
 		"description": "func is not defined"
 	}
@@ -82,7 +81,7 @@ curl -d '{"page-uri": "/foo/bar", "nav-timing":{"dns":1,"connect":2,"ttfb":3,"ba
 ```
 And this for JS Error reporting:
 ```bash
-curl -d '{"page-uri": "/foo/bar", "query-string": "?param=true", "js-error":{"user-agent": "Mozilla/5.0", "error-type": "ReferenceError", "description": "func is not defined"}}' -H "X-Real-Ip: 192.168.0.1" http://localhost:8080/js-error
+curl -d '{"page-uri": "/foo/bar", "query-string": "?param=true", "js-error":{"error-type": "ReferenceError", "description": "func is not defined"}}' -H "X-Real-Ip: 192.168.0.1" http://localhost:8080/js-error
 ```
 
 ## Test Coverage

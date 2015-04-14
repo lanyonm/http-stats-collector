@@ -20,7 +20,6 @@ var (
 	js_data = `{"page-uri": "fizz/buzz",
 		"query-string": "param=value&other=not",
 		"js-error": {
-			"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36",
 			"error-type": "ReferenceError",
 			"description": "func is not defined"
 		}

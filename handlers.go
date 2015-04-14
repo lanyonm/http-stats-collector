@@ -92,6 +92,7 @@ func JsErrorReportHandler() http.HandlerFunc {
 		}
 
 		jsError.ReportTime = time.Now().UTC()
+		jsError.Details.UserAgent = req.UserAgent()
 
 		// do something smart with the error
 		dets, _ := json.Marshal(jsError)
