@@ -63,7 +63,28 @@ The JSON structure the `/js-logging` endpoint expects is:
 
 Javascript that collects and sends this information can be as simple as the following:
 
+```javascript
+<script type="text/javascript">
+	window.onerror = function globalErrorHandler( errorMessage, url, lineNumber, charPos, errorObj ) {
+		var errorStats = {
+			'page-uri': window.location.pathname,
+			'query-string': window.location.search,
+			'js-error': {
+				'error-type': errorObj.name,
+				'description': errorObj.message
+			}
+		};
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("POST", "//example.com/js-logging", true);
+			xmlhttp.setRequestHeader("Content-type", "application/json");
+			xmlhttp.send(JSON.stringify(errorStats));
+		}
 
+		return false;
+	};
+</script>
+```
 
 ## Building
 This will run tests as well.
