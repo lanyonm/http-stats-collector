@@ -62,6 +62,43 @@ func NavTimingHandler(recorders []Recorder) http.HandlerFunc {
 	}
 }
 
+type JsErrorReport struct {
+	PageURI     string  `json:"page-uri"`
+	QueryString string  `json:"query-string"`
+	Details     JsError `json:"js-error"`
+	ReportTime  time.Time
+}
+
+type JsError struct {
+	UserAgent   string `json:"user-agent"`
+	ErrorType   string `json:"error-type"`
+	Description string `json:"description"`
+}
+
+func JsErrorReportHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		var jsError JsErrorReport
+
+		if req.Method != "POST" {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			w.Header().Set("Allow", "POST")
+			return
+		}
+
+		if err := json.NewDecoder(req.Body).Decode(&jsError); err != nil {
+			http.Error(w, "Error parsing JSON", http.StatusBadRequest)
+			return
+		}
+
+		jsError.ReportTime = time.Now().UTC()
+		jsError.Details.UserAgent = req.UserAgent()
+
+		// do something smart with the error
+		dets, _ := json.Marshal(jsError)
+		log.Println(strings.Join(req.Header["X-Real-Ip"], ""), "encountered a javascript error:", string(dets))
+	}
+}
+
 type CSPReport struct {
 	Details    CSPDetails `json:"csp-report" statName:"cspReport"`
 	ReportTime time.Time  `statName:"dateTime"`

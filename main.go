@@ -31,6 +31,7 @@ func main() {
 
 	recorders := []Recorder{StatsDRecorder{client}}
 	http.HandleFunc("/nav-timing", NavTimingHandler(recorders))
+	http.HandleFunc("/js-error", JsErrorReportHandler())
 	http.HandleFunc("/csp-report", CSPReportHandler())
 
 	log.Println("http-stats-collector: listening on port", *port)
