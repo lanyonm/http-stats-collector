@@ -36,7 +36,7 @@ Javascript that will send this information can be as simple as the following:
       };
       if (window.XMLHttpRequest) {
         xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("POST", "//example.com/nav-timing", true);
+        xmlhttp.open("POST", window.location.href+"nav-timing", true);
         xmlhttp.setRequestHeader("Content-type", "application/json");
         xmlhttp.send(JSON.stringify(stats));
       }
@@ -76,7 +76,7 @@ Javascript that collects and sends this information can be as simple as the foll
 		};
 		if (window.XMLHttpRequest) {
 			xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST", "//example.com/js-logging", true);
+			xmlhttp.open("POST", window.location.href+"js-logging", true);
 			xmlhttp.setRequestHeader("Content-type", "application/json");
 			xmlhttp.send(JSON.stringify(errorStats));
 		}
