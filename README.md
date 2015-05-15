@@ -22,6 +22,10 @@ Javascript that will send this information can be as simple as the following:
 ```javascript
 <script type="text/javascript">
   window.onload = function() {
+    if (!window.location.origin) {
+      window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+
     if (window.performance && window.performance.timing) {
       var timing = window.performance.timing;
       var stats = {
@@ -36,7 +40,7 @@ Javascript that will send this information can be as simple as the following:
       };
       if (window.XMLHttpRequest) {
         xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("POST", window.location.href+"nav-timing", true);
+        xmlhttp.open("POST", window.location.origin+"/nav-timing", true);
         xmlhttp.setRequestHeader("Content-type", "application/json");
         xmlhttp.send(JSON.stringify(stats));
       }
@@ -65,6 +69,9 @@ Javascript that collects and sends this information can be as simple as the foll
 
 ```javascript
 <script type="text/javascript">
+	if (!window.location.origin) {
+		window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+	}
 	window.onerror = function globalErrorHandler( errorMessage, url, lineNumber, charPos, errorObj ) {
 		var errorStats = {
 			'page-uri': window.location.pathname,
@@ -76,7 +83,7 @@ Javascript that collects and sends this information can be as simple as the foll
 		};
 		if (window.XMLHttpRequest) {
 			xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST", window.location.href+"js-logging", true);
+			xmlhttp.open("POST", window.location.origin+"/js-logging", true);
 			xmlhttp.setRequestHeader("Content-type", "application/json");
 			xmlhttp.send(JSON.stringify(errorStats));
 		}
