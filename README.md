@@ -52,7 +52,7 @@ Javascript that will send this information can be as simple as the following:
 The `page-uri` will be converted into the appropriate format for the recorder and the stat pushed to that recorder.
 
 ## Javascript Errors
-The JSON structure the `/js-logging` endpoint expects is:
+The JSON structure the `/js-error` endpoint expects is:
 
 ```javascript
 {
@@ -83,7 +83,7 @@ Javascript that collects and sends this information can be as simple as the foll
 		};
 		if (window.XMLHttpRequest) {
 			xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST", window.location.origin+"/js-logging", true);
+			xmlhttp.open("POST", window.location.origin+"/js-error", true);
 			xmlhttp.setRequestHeader("Content-type", "application/json");
 			xmlhttp.send(JSON.stringify(errorStats));
 		}
