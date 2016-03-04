@@ -1,20 +1,23 @@
-.PHONY: test build
+.PHONY: test build help
 
 BINARY := http-stats-collector
 
-all: clean test build
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-clean:
+all: clean test build ## clean, test, and build all the things!
+
+clean: ## delete dat binary!
 	rm -f $(BINARY)
 
-build: *.go
+build: *.go ## mmmm, compilation!
 	go build -o $(BINARY) *.go
 
-test:
+test: ## avoid the footgun!
 	go test -v
 
-run: all
+run: all ## equivalent of doit.sh
 	./$(BINARY)
 
-cover:
+cover: ## get you some test coverage!
 	go test -race -covermode=count -coverprofile=coverage.out && go tool cover -html=coverage.out
