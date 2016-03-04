@@ -96,7 +96,7 @@ Javascript that collects and sends this information can be as simple as the foll
 ## Building
 This will run tests as well.
 
-	make
+	make all
 
 ## Running
 
